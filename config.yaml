@@ -1,7 +1,7 @@
 judge_model_name: openai/o4-mini
-filename: l12_nov3_1161_rubrics_updated
-base_url: https://litellm.ml-serving-internal.scale.com/v1
-litellm_key_path: litellm_key
+filename: your_filename
+base_url: your_endpoint_url
+litellm_key_path: your_litellm_key_path
 debug: false
 trial_number: 0
 web_search: false
