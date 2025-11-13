@@ -1,15 +1,15 @@
 judge_model_name: openai/o4-mini
-filename: your_filename
+filename: result
+split_name: train
 base_url: your_endpoint_url
 litellm_key_path: your_litellm_key_path
-debug: false
+debug: true
 trial_number: 0
 web_search: false
 background: true
 final_response_source: sampled
 timeout_seconds: 3600  # 60 minutes
 cache: true
-# prefilled_response_column: final_response_my_model
 reasoning_effort_by_model:
   openai/o3: high
   openai/o3-pro: high

@@ -7,16 +7,17 @@ from dataclasses import dataclass, field
 class Config:
     
     judge_model_name: str
-    filename: str
     base_url: str
     litellm_key_path: str
+    filename: str = "result"
+    split_name: str = "finance"
     trial_number: int = 0
     debug: bool = False
     web_search: bool = False
     background: bool = False
     timeout_seconds: int = 300  # 5 minutes default
-    final_response_source: str = "prefilled" # "prefilled" or "sampled" or "part_of_conversation"
-    prefilled_response_column: str = None
+    final_response_source: str = "sampled" # "prefilled" or "sampled" or "part_of_conversation"
+    # prefilled_response_column: str = None
     previous_output_json: str = None
     cache: bool = False
     response_api: str = "responses" # "responses" or "chat.completions"
@@ -67,7 +68,7 @@ class Config:
             'response_model_names': self.response_model_names,
             'reasoning_effort_by_model': self.reasoning_effort_by_model,
             'thinking_budget_by_model': self.thinking_budget_by_model,
-            'prefilled_response_column': self.prefilled_response_column,
+            'split_name': self.split_name,
             'previous_output_json': self.previous_output_json,
             'cache': self.cache,
         }

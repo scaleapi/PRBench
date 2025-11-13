@@ -9,13 +9,14 @@ import datetime
 import json
 from config import Config
 import sys
+from datasets import load_dataset
 
 
 async def load_process_csv_data_custom_responses(
-    client, path, judge_model_name, response_model_name, kwargs,
+    client, judge_model_name, response_model_name, kwargs,
     config: Config
 ):
-    df = pd.read_json(path, lines=True)
+    df = load_dataset("ScaleAI/PRBench", split=config.split_name, token=open("hfkey").read().strip()).to_pandas()
     if config.debug:
         df = df[10:12]
 
@@ -44,9 +45,12 @@ async def load_process_csv_data_custom_responses(
 
     # Retrieve final responses
     if config.final_response_source == "prefilled":
-        final_responses = df[config.prefilled_response_column].tolist()
-        final_responses = [remove_thinking_tags(s) for s in final_responses]
-        convos = [create_convo([t for t in convo] + [("assistant", final_response)]) for convo, final_response in zip(convos, final_responses)]
+        final_responses = json.load(open(f"{config.filename}.json"))
+        final_responses = {k: remove_thinking_tags(v) for k, v in final_responses.items()}
+        final_responses_list = []
+        for task in df['task']:
+            final_responses_list.append(final_responses[task])
+        convos = [create_convo([t for t in convo] + [("assistant", final_response)]) for convo, final_response in zip(convos, final_responses_list)]
     
     # Sample final responses
     elif config.final_response_source == "sampled":
@@ -114,7 +118,6 @@ async def run_evals_off_platform(config: Config):
         for response_model_name in response_model_names:
             normalized_points, clipped_points, outputs = await load_process_csv_data_custom_responses(
                 client,
-                f"data/{config.filename}.jsonl",
                 config.judge_model_name,
                 response_model_name,
                 kwargs=kwargs_for(response_model_name, config),
@@ -125,7 +128,7 @@ async def run_evals_off_platform(config: Config):
             results["std_normalized"][response_model_name] = np.std(normalized_points)
             results["points_normalized"][response_model_name] = normalized_points
 
-            results["mean_clipped"][response_model_name] = np.mean(clipped_points)
+            results["mean_clipped"][response_model_name] = max(0, np.mean(clipped_points))
             results["std_clipped"][response_model_name] = np.std(clipped_points)
             results["points_clipped"][response_model_name] = clipped_points
 
@@ -142,7 +145,7 @@ async def run_evals_off_platform(config: Config):
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     os.makedirs("results", exist_ok=True)
     output_filename = (
-        f"results/{config.filename}_off_platform_judge_{judge_model_name_short}"
+        f"results/{config.filename.split('/')[-1]}_off_platform_judge_{judge_model_name_short}"
         f"_web_search_{config.web_search}_debug_{config.debug}"
         f"_trial_{config.trial_number}_cache_{config.cache}_{timestamp}.json"
     )
