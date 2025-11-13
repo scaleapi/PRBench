@@ -16,7 +16,7 @@ async def load_process_csv_data_custom_responses(
     client, judge_model_name, response_model_name, kwargs,
     config: Config
 ):
-    df = load_dataset("ScaleAI/PRBench", split=config.split_name, token=open("hfkey").read().strip()).to_pandas()
+    df = load_dataset("ScaleAI/PRBench", split=config.split_name).to_pandas()
     if config.debug:
         df = df[10:12]
 
