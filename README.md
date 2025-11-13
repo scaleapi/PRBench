@@ -14,7 +14,9 @@ PRBench consists of:
 
 * Hard subsets (Finance-300, Legal-250) representing the most challenging tasks
 
-See the paper for full details.
+See the release for the paper and full details at: https://scale.com/research/prbench
+
+Explore PRBench using our visualizer at: https://prbench-explorer.vercel.app/
 
 
 ## Quickstart
