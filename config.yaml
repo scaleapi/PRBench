@@ -1,6 +1,6 @@
 judge_model_name: openai/o4-mini
 filename: result
-split_name: train
+split_name: finance
 base_url: your_endpoint_url
 litellm_key_path: your_litellm_key_path
 debug: true
