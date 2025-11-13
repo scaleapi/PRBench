@@ -10,7 +10,7 @@ PRBench consists of:
 
 * 19,340 expert-curated rubric criteria (10–30 per task)
 
-* Coverage of 114 countries, 47 U.S. jurisdictions, and 25 total professional topics across law and finance.
+* Coverage of 114 countries, 47 U.S. jurisdictions, and 25 total professional topics.
 
 * Hard subsets (Finance-300, Legal-250) representing the most challenging tasks
 
