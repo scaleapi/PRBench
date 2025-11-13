@@ -140,6 +140,7 @@ async def run_evals_off_platform(config: Config):
     # Generate output filename and save results
     judge_model_name_short = config.judge_model_name.split("/")[-1]
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    os.makedirs("results", exist_ok=True)
     output_filename = (
         f"results/{config.filename}_off_platform_judge_{judge_model_name_short}"
         f"_web_search_{config.web_search}_debug_{config.debug}"
