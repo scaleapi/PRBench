@@ -8,7 +8,7 @@ PRBench consists of:
 
 * 1,100 expert-authored conversations across Finance and Legal domains
 
-* 19,340 expert-curated rubric criteria (10–30 per task)
+* 19,356 expert-curated rubric criteria (10–30 per task)
 
 * Coverage of 114 countries, 47 U.S. jurisdictions, and 25 total professional topics.
 
