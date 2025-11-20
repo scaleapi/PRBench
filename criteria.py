@@ -14,10 +14,13 @@ class Criterion:
         self.d["weight"] = self.d[self.d['weight_class'].replace(" ", "_")+"_weight"]
 
     def find_criteria_category(self):
+        if "criteria_category" in self.d:
+            return
         self.d['criteria_category'] = None
         for k, v in self.d.items():
             if "criteria_category" in k:
                 self.d['criteria_category'] = v
+                return
 
     def get_weight(self):
         return self.d['weight']
