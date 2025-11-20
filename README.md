@@ -24,7 +24,7 @@ See the paper for full details.
 3. Configure the config.yaml to point to the right API key path `litellm_key_path` and base url. The code uses OpenAI SDK--make sure to use the right key for your endpoint.
 4. Select which response models to evaluate in `response_model_names`.
 5. For debugging set `debug` to `true` which will only run evaluation for the first 2 samples.
-6. Run with `python evals.py --config config.yaml`.
+6. Run with `python evals.py config.yaml`.
 
 ## Source of Responses
 
